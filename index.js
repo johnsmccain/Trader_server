@@ -5,7 +5,13 @@ import dotenv from "dotenv"
 
 // Importing files
 import SetUp from "./utils/setUp.js";
-import {userRoute, handleErrorRoute} from "./routes/index.js"
+import {
+	authRoute, 
+	userRoute, 
+	handleErrorRoute, 
+	uploadRoute,
+	settingsRoute,
+} from "./routes/index.js"
 
 
 // Initializing and configuring app
@@ -16,7 +22,10 @@ const port = process.env.PORT
 setUp.onDbconnect();
 
 
-// Middlewares
+// // Middlewares
+// app.use(express.static("src"));
+app.use(express.static("public"));
+
 setUp.middleWares();
 
 app.listen(port, async()=> {
@@ -26,7 +35,11 @@ app.listen(port, async()=> {
 })
 
 // Routes
-app.use("/api/user", userRoute);
-
+app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
+app.use("/api/upload", uploadRoute);
+app.use("/api/settings", settingsRoute);
+app.use("/images", express.static("images"))
+app.use("/videos", express.static("vidoes"))
 // 
 app.use(handleErrorRoute);

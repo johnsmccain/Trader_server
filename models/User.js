@@ -8,15 +8,22 @@ const userSchema = mongoose.Schema({
     },
     firstname: {
         type: String,
-        required: true,
     },
     lastname: {
         type: String,
-        required: true,
     },
     password: {
         type: String,
         required: true
+    },
+    picture: {
+        type: String,
+    },
+    phone: {
+        type: String,
+    },
+    dob: {
+        type: Date,
     },
     email:{
         type: String,
@@ -30,23 +37,52 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    profilePicture: String,
-    coverPicture: String,
-    about: String,
-    livesIn: String,
-    state: String,
+    profilePicture: {
+        type: String
+    },
+    coverPicture: {
+        type: String
+    },
+    about: {
+        type: String
+    },
+    price: {
+        type: Number
+    },
+    livesIn: {
+        type: String
+    },
+    state: {
+        type: String
+    },
+    address: {
+        type: String
+    },
+    gallery: {
+        type: String
+    },
+    position: {
+        type: String
+    },
+    tag: {
+        type: String
+    },
     story:{
         type: [String]
     },
-    country: String,
+    country: {
+        type: String
+    },
     clients: [],
+    review: [],
     followers: [],
     following: [],
     rating: {
         type: Number,
         min: 0,
         max: 5
-    }
+    },
+    settings_id: String 
 
 }, {timestamps: true});
 
