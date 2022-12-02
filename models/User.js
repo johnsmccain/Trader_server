@@ -8,20 +8,30 @@ const userSchema = mongoose.Schema({
     },
     firstname: {
         type: String,
-        required: true,
     },
     lastname: {
         type: String,
-        required: true,
     },
     password: {
         type: String,
         required: true
     },
+    picture: {
+        type: String,
+    },
+    phone: {
+        type: String,
+    },
+    dob: {
+        type: Date,
+    },
     email:{
         type: String,
         unique: true,
     },
+
+
+    
     isAdmin: {
         type: Boolean,
         default: false
@@ -30,23 +40,70 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    profilePicture: String,
-    coverPicture: String,
-    about: String,
-    livesIn: String,
-    state: String,
-    story:{
-        type: [String]
+    isPublic: {
+        type: Boolean,
+        default: false
     },
-    country: String,
-    clients: [],
-    followers: [],
-    following: [],
+    profilePicture: {
+        type: String,
+    },
+    coverPicture: {
+        type: String,
+    },
+    about: {
+        type: String,
+    },
+    livesIn: {
+        type: String,
+    },
+    state: {
+        type: String,
+    },
+    address: {
+        type: String,
+    },
+    story:[],
+    gallery:{
+        type: Array
+    },
+    country: {
+        type: String,
+    },
+    tag: {
+        type: String,
+    },
+    price: {
+        type: Number,
+    },
+    service_name: {
+        type: String,
+    },
+    clients: {
+        type: Array
+    },
+    followers: {
+        type: Array
+    },
+    following: {
+        type: Array
+    },
+    bookmarkers: {
+        type: Array
+    },
+    bookmarking: {
+        type: Array
+    },
     rating: {
         type: Number,
         min: 0,
         max: 5
-    }
+    },
+    bookmark:{
+        type: Array
+    },
+    settings_id: {
+        type: String,
+    }, 
 
 }, {timestamps: true});
 

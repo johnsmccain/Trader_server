@@ -2,6 +2,8 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { createError } from "../utils/error.js";
+import Setting from "../models/Setting.js";
+import { settings_data } from "../utils/settings_data.js";
 
 
 export const register = async(req, res, next) => {
@@ -10,8 +12,11 @@ export const register = async(req, res, next) => {
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
     try {
-        const newUser = User({...req.body, password: hashedPassword});
+        // const newSettings = Setting(settings_data);
+        const newSettings = await Setting(settings_data).save();
+        const newUser = User({...req.body, password: hashedPassword, settings_id: newSettings._id});
         await newUser.save();
+        // console.log(newSettings._id)
     } catch (error) {
         next(error);
     }
@@ -36,11 +41,11 @@ export const login = async(req, res, next) => {
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
 
-        const {password, ...user_details} = user._doc;
+        const {password, isAdmin, ...user_details} = user._doc;
 
         res.cookie("access_token", token,{
             httpOnly: true,
-        }).status(200).json(user_details)
+        }).status(200).json({details:{...user_details}, isAdmin})
     } catch (error) {
         next(error);
     }

@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
+import helmet from "helmet";
 class SetUp{
     constructor(express){
         this.express = express;
@@ -28,6 +29,8 @@ class SetUp{
         this.app.use(cors());
         this.app.use(cookieParser());
         this.app.use(this.express.json());  
+        this.app.use(helmet());
+        // this.app.use(morgan);
         this.app.use(bodyParser.json({limit: "30mb", extended: true}));
         this.app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
         this.app.use(this.express.static("public"));
